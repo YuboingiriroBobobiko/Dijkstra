@@ -42,6 +42,14 @@ public class Main
             KeyStroke.getKeyStroke('S', InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK),
             KeyStroke.getKeyStroke('Q', InputEvent.CTRL_MASK),
         }, new MenuEventHandler());
+        
+        gui.addMenu("Run", new String[] {
+            "Step",
+            "Reset",
+        }, new KeyStroke[] {
+            KeyStroke.getKeyStroke(' '),
+            KeyStroke.getKeyStroke('r'),
+        }, new MenuEventHandler());
     }
     
     // This exists only for the GUI and MouseHandler classes to use.

@@ -2,7 +2,7 @@
  * This class controls the menu and other GUI.
  *
  * Dylan fage-Brown
- * 2025/07/24
+ * 2025/07/31
  */
 
 
@@ -96,7 +96,7 @@ public class GUI extends JFrame
                 Node nodeB = conn.getDest();
                 g.setColor(Color.black);
                 g.drawLine(nodeA.positionX, nodeA.positionY, nodeB.positionX, nodeB.positionY);
-                drawCentredString(g, "Distance: " + conn.distance,
+                drawCentredString(g, "Distance: " + conn.distance, // Halfway between both nodes
                     (nodeA.positionX + nodeB.positionX) / 2, (nodeA.positionY + nodeB.positionY) / 2);
             }
         }
@@ -107,9 +107,7 @@ public class GUI extends JFrame
             g.fillOval(node.positionX - NODE_W / 2, node.positionY - NODE_H / 2, NODE_W, NODE_H);
             g.setColor(Color.black);
             g.drawOval(node.positionX - NODE_W / 2, node.positionY - NODE_H / 2, NODE_W, NODE_H);
-            // Offset the text so that it's (roughly) centred. character half-width = 3, character half-height = 4
             drawCentredString(g, node.name, node.positionX, node.positionY);
-            //g.drawString(node.name, node.positionX - node.name.length() * 3, node.positionY + 4);
         }
     }
 }

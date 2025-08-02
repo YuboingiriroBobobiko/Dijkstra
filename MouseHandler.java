@@ -2,7 +2,7 @@
  * This class handles the mouse movement events and editing the graph.
  *
  * Dylan fage-Brown
- * 2025/07/24
+ * 2025/07/31
  */
 
 
@@ -14,8 +14,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener
     private Graph graph;
     private GUI gui;
     
-    private static final int NODE_RADIUS = 75;
-    private static final int CONN_RADIUS = 50;
+    private static final int NODE_RADIUS = 38;
+    private static final int CONN_RADIUS = 25;
     
     private boolean isDragging = false;
     private Node selectedNode;
@@ -64,6 +64,27 @@ public class MouseHandler implements MouseListener, MouseMotionListener
         return null;
     }
     
+    private boolean validateNodeName(String nodeName) {
+        if (nodeName.length() == 0) {
+            gui.showErrorDialog("Name cannot be empty");
+            return false;
+        }
+        for (int i = 0; i < nodeName.length(); i++) {
+            char currentChar = nodeName.charAt(i);
+            if (currentChar == ',' || currentChar == '\n') {
+                gui.showErrorDialog("Name cannot contain commas or linebreaks");
+                return false;
+            }
+        }
+        // If getNodeByName is not null, then there is already a node with that name
+        if (graph.getNodeByName(nodeName) != null) {
+            gui.showErrorDialog("A node with this name already exists");
+            return false;
+        }
+        
+        return true;
+    }
+    
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {
@@ -86,6 +107,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener
             if (conn == null) { // Clicked on background
                 String nodeName = gui.showInputDialog("Enter the name of the node to create");
                 if (nodeName == null) {return;}
+                if (!validateNodeName(nodeName)) {return;}
                 
                 graph.addNode(new Node(nodeName, e.getX(), e.getY()));
                 
@@ -131,9 +153,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener
         switch (choice) {
             case 0: // Rename
                 String name = gui.showInputDialog("Enter the new name:");
-                if (name == null) {
-                    break;
-                }
+                if (name == null) {break;}
+                if (!validateNodeName(name)) {break;}
                 selectedNode.name = name;
                 break;
             case 1: // Add connection
@@ -172,11 +193,19 @@ public class MouseHandler implements MouseListener, MouseMotionListener
     
     public void mouseMoved(MouseEvent e) {}
     public void mouseDragged(MouseEvent e) {
+        if (selectedNode == null) {return;}
+        
         int mouseX = e.getX();
         int mouseY = e.getY();
         
         selectedNode.positionX = mouseX + dragOffsetX;
         selectedNode.positionY = mouseY + dragOffsetY;
+        
+        // Clamp the node to the edges of the window
+        if (selectedNode.positionX < 0) {selectedNode.positionX = 0;}
+        if (selectedNode.positionX > 1024) {selectedNode.positionX = 1024;}
+        if (selectedNode.positionY < 30) {selectedNode.positionY = 30;}
+        if (selectedNode.positionY > 596) {selectedNode.positionY = 596;}
         
         gui.repaint();
     }
