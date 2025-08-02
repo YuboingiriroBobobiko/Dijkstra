@@ -2,7 +2,7 @@
  * Very simple class that contains a connection bewteen Nodes and the distance.
  *
  * Dylan fage-Brown
- * 2025/07/20
+ * 2025/07/24
  */
 
 
@@ -24,6 +24,16 @@ public class Connection
     }
     public Node getDest() {
         return dest;
+    }
+    
+    public Connection getOpposite() {
+        for (Connection conn : dest.getConnections()) {
+            if (conn.getDest() == source) {
+                return conn;
+            }
+        }
+        
+        return null;
     }
     
     public String stringify() {

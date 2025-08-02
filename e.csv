@@ -1,0 +1,11 @@
+5
+WellingtonCity,313,336
+Porirua,384,141
+Petone,526,283
+Upper Hutt,700,100
+England,582,447
+4
+WellingtonCity,Petone,100.0
+Porirua,Upper Hutt,300.0
+Porirua,Petone,200.0
+Petone,Upper Hutt,150.0

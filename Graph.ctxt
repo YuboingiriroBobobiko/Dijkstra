@@ -10,4 +10,6 @@ comment4.params=name
 comment4.target=Node\ getNodeByName(java.lang.String)
 comment5.params=index
 comment5.target=Node\ getNodeByIndex(int)
-numComments=6
+comment6.params=node
+comment6.target=void\ removeNode(Node)
+numComments=7

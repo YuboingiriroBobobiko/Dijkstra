@@ -2,7 +2,7 @@
  * Holds a list of Nodes and can search through them.
  *
  * Dylan fage-Brown
- * 2025/07/20
+ * 2025/07/24
  */
 
 
@@ -35,5 +35,8 @@ public class Graph
     }
     public Node getNodeByIndex(int index) {
         return nodes.get(index);
+    }
+    public void removeNode(Node node) {
+        nodes.remove(node);
     }
 }

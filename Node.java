@@ -2,7 +2,7 @@
  * A node in the graph.
  *
  * Dylan fage-Brown
- * 2025/07/20
+ * 2025/07/24
  */
 
 

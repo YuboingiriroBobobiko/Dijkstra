@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Connection
-comment0.text=\r\n\ Very\ simple\ class\ that\ contains\ a\ connection\ bewteen\ Nodes\ and\ the\ distance.\r\n\r\n\ Dylan\ fage-Brown\r\n\ 2025/07/20\r\n
+comment0.text=\r\n\ Very\ simple\ class\ that\ contains\ a\ connection\ bewteen\ Nodes\ and\ the\ distance.\r\n\r\n\ Dylan\ fage-Brown\r\n\ 2025/07/24\r\n
 comment1.params=source\ dest\ distance
 comment1.target=Connection(Node,\ Node,\ double)
 comment2.params=
@@ -8,5 +8,7 @@ comment2.target=Node\ getSource()
 comment3.params=
 comment3.target=Node\ getDest()
 comment4.params=
-comment4.target=java.lang.String\ stringify()
-numComments=5
+comment4.target=Connection\ getOpposite()
+comment5.params=
+comment5.target=java.lang.String\ stringify()
+numComments=6

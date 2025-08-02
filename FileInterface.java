@@ -74,7 +74,13 @@ public class FileInterface
             
             String nodeNameA = fields[0];
             String nodeNameB = fields[1];
-            double length = Float.parseFloat(fields[2]);
+            double distance;
+            try {
+                distance = Double.parseDouble(fields[2]);
+            } catch (NumberFormatException e) {
+                gui.showErrorDialog("Distance is not a number");
+                return null;
+            }
             
             Node nodeA = graph.getNodeByName(nodeNameA);
             if (nodeA == null) {
@@ -85,8 +91,8 @@ public class FileInterface
                 gui.showErrorDialog("Nonexistent node B (at connection " + i + ")");
             }
             
-            nodeA.addConnection(new Connection(nodeA, nodeB, length));
-            nodeB.addConnection(new Connection(nodeB, nodeA, length));
+            nodeA.addConnection(new Connection(nodeA, nodeB, distance));
+            nodeB.addConnection(new Connection(nodeB, nodeA, distance));
         }
         
         return graph;
