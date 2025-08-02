@@ -44,6 +44,9 @@ public class Main
     public static GUI getGui() {
         return gui;
     }
+    public static Graph getGraph() {
+        return currentGraph;
+    }
     
     
     public static void openFileMenu() {
@@ -51,10 +54,11 @@ public class Main
         if (name == null) {
             return;
         }
-        
         currentFilename = name;
         
         currentGraph = FileInterface.readGraph(currentFilename);
+        
+        gui.repaint(); // Update the graphics to show the new graph
     }
     
     public static void saveFileMenu(boolean askForName) {

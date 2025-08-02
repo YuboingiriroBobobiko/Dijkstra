@@ -14,21 +14,35 @@ import java.awt.event.*;
 public class GUI extends JFrame
 {
     private JMenuBar menuBar;
-    
+    private Canvas canvas;
+    private JPanel canvasPanel;
     
     public GUI() {
         setTitle("Animating Dijkstra's Algorithm");
         
-        getContentPane().setPreferredSize(new Dimension(1024, 576));
+        Dimension windowSize = new Dimension(1024, 576);
+        getContentPane().setPreferredSize(windowSize);
         
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
+        
+        canvasPanel = new JPanel();
+        canvasPanel.setPreferredSize(windowSize);
+        canvas = new Canvas();
+        canvasPanel.add(canvas);
     }
     public void finishSetup() {
         pack();
         toFront();
         setVisible(true);
     }
+    
+    public void paint(Graphics g) {
+        super.paint(g);
+        
+        drawGraph(g);
+    }
+    
     
     public void addMenu(String name, String[] items, KeyStroke[] shortcuts, ActionListener listener) {
         JMenu menu = new JMenu(name);
@@ -48,5 +62,45 @@ public class GUI extends JFrame
     }
     public String showInputDialog(String text) {
         return JOptionPane.showInputDialog(text);
+    }
+    
+    
+    private static final int NODE_W = 75;
+    private static final int NODE_H = 75;
+    
+    private void drawCentredString(Graphics g, String str, int x, int y) {
+        int HALF_W = (int)(str.length() * 2.8);
+        int HALF_H = 4;
+        g.setColor(Color.lightGray);
+        g.fillRect(x - HALF_W, y - HALF_H, HALF_W * 2, HALF_H * 2);
+        g.setColor(Color.black);
+        g.drawString(str, x - HALF_W, y + HALF_H);
+    }
+    
+    private void drawGraph(Graphics g) {
+        Graph graph = Main.getGraph();
+        
+        // First we draw the connections between nodes
+        for (Node node : graph.getNodes()) {
+            for (Connection conn : node.getConnections()) {
+                Node nodeA = conn.getSource();
+                Node nodeB = conn.getDest();
+                g.setColor(Color.black);
+                g.drawLine(nodeA.positionX, nodeA.positionY, nodeB.positionX, nodeB.positionY);
+                drawCentredString(g, "Distance: " + conn.distance,
+                    (nodeA.positionX + nodeB.positionX) / 2, (nodeA.positionY + nodeB.positionY) / 2);
+            }
+        }
+        
+        // Then we draw the nodes themselves *on top* of the connections
+        for (Node node : graph.getNodes()) {
+            g.setColor(Color.lightGray);
+            g.fillOval(node.positionX - NODE_W / 2, node.positionY - NODE_H / 2, NODE_W, NODE_H);
+            g.setColor(Color.black);
+            g.drawOval(node.positionX - NODE_W / 2, node.positionY - NODE_H / 2, NODE_W, NODE_H);
+            // Offset the text so that it's (roughly) centred. character half-width = 3, character half-height = 4
+            drawCentredString(g, node.name, node.positionX, node.positionY);
+            //g.drawString(node.name, node.positionX - node.name.length() * 3, node.positionY + 4);
+        }
     }
 }
