@@ -1,10 +1,13 @@
 #BlueJ class context
 comment0.target=Dijkstra
-comment0.text=\r\n\ This\ class\ implements\ Dijkstra's\ algorithm,\ working\ out\ the\ shortest\ path\ to\ every\ node.\r\n\r\n\ Dylan\ fage-Brown\r\n\ 2025/08/02\r\n
+comment0.text=\r\n\ This\ class\ implements\ Dijkstra's\ algorithm,\ working\ out\ the\ shortest\ path\ to\ the\ ending\ node.\r\n\r\n\ Dylan\ fage-Brown\r\n\ 2025/08/03\r\n
 comment1.params=
 comment1.target=boolean\ isRunning()
-comment2.params=graph\ gui
-comment2.target=void\ step(Graph,\ GUI)
-comment3.params=graph
-comment3.target=void\ reset(Graph)
-numComments=4
+comment2.params=graph\ gui\ text
+comment2.target=Node\ selectNode(Graph,\ GUI,\ java.lang.String)
+comment3.params=graph\ gui
+comment3.target=void\ step(Graph,\ GUI)
+comment3.text=\r\n\ Controls\ the\ entire\ algorithm.\ At\ each\ step,\ it\ runs\ whatever\ state\ is\ dictated\ by\ currState.\r\n
+comment4.params=graph
+comment4.target=void\ reset(Graph)
+numComments=5
