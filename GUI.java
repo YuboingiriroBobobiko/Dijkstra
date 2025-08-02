@@ -2,7 +2,7 @@
  * This class controls the menu and other GUI.
  *
  * Dylan fage-Brown
- * 2025/07/31
+ * 2025/08/02
  */
 
 
@@ -63,6 +63,9 @@ public class GUI extends JFrame
     }
     
     
+    public void showMessageDialog(String text, String title) {
+        JOptionPane.showMessageDialog(this, text, title, JOptionPane.INFORMATION_MESSAGE);
+    }
     public void showErrorDialog(String text) {
         JOptionPane.showMessageDialog(this, text, "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -78,10 +81,10 @@ public class GUI extends JFrame
     private static final int NODE_W = 75;
     private static final int NODE_H = 75;
     
-    private void drawCentredString(Graphics g, String str, int x, int y) {
+    private void drawCentredString(Graphics g, String str, int x, int y, Color colour) {
         int HALF_W = (int)(str.length() * 2.8);
         int HALF_H = 4;
-        g.setColor(Color.lightGray);
+        g.setColor(colour);
         g.fillRect(x - HALF_W, y - HALF_H, HALF_W * 2, HALF_H * 2);
         g.setColor(Color.black);
         g.drawString(str, x - HALF_W, y + HALF_H);
@@ -97,17 +100,32 @@ public class GUI extends JFrame
                 g.setColor(Color.black);
                 g.drawLine(nodeA.positionX, nodeA.positionY, nodeB.positionX, nodeB.positionY);
                 drawCentredString(g, "Distance: " + conn.distance, // Halfway between both nodes
-                    (nodeA.positionX + nodeB.positionX) / 2, (nodeA.positionY + nodeB.positionY) / 2);
+                    (nodeA.positionX + nodeB.positionX) / 2, (nodeA.positionY + nodeB.positionY) / 2, Color.lightGray);
             }
         }
         
         // Then we draw the nodes themselves *on top* of the connections
         for (Node node : graph.getNodes()) {
-            g.setColor(Color.lightGray);
+            Color nodeColour;
+            if (node.visited) {
+                nodeColour = Color.red;
+            } else {
+                nodeColour = Color.lightGray;
+            }
+            g.setColor(nodeColour);
             g.fillOval(node.positionX - NODE_W / 2, node.positionY - NODE_H / 2, NODE_W, NODE_H);
+            
             g.setColor(Color.black);
             g.drawOval(node.positionX - NODE_W / 2, node.positionY - NODE_H / 2, NODE_W, NODE_H);
-            drawCentredString(g, node.name, node.positionX, node.positionY);
+            
+            String name = node.name;
+            if (node.isStart) {
+                name += " (start)";
+            }
+            drawCentredString(g, name, node.positionX, node.positionY, nodeColour);
+            if (Dijkstra.isRunning()) {
+                drawCentredString(g, "Distance: " + node.distance, node.positionX, node.positionY + 10, nodeColour);
+            }
         }
     }
 }

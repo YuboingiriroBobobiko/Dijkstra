@@ -2,7 +2,7 @@
  * This class handles all events from the menu bar.
  *
  * Dylan fage-Brown
- * 2025/07/21
+ * 2025/08/02
  */
 
 
@@ -19,6 +19,9 @@ public class MenuEventHandler implements ActionListener
         // Can't think of an simpler/easier way
         switch (cmdName) {
             // File
+            case "New":
+                Main.newGraph();
+                break;
             case "Open":
                 Main.openFileMenu();
                 break;
@@ -30,6 +33,19 @@ public class MenuEventHandler implements ActionListener
                 break;
             case "Exit":
                 System.exit(1);
+                break;
+            
+            // Run
+            case "Step":
+                Main.stepDijkstra();
+                break;
+            case "Reset":
+                Main.resetDijkstra();
+                break;
+            
+            // Help
+            case "Help":
+                Main.helpMenu();
                 break;
                 
             default:

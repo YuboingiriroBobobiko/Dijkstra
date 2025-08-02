@@ -2,7 +2,7 @@
  * This is the main class of the program and holds the entry point.
  *
  * Dylan fage-Brown
- * 2025/07/24
+ * 2025/08/02
  */
 
 
@@ -32,11 +32,13 @@ public class Main
     
     private static void initMenus() {
         gui.addMenu("File", new String[] {
+            "New",
             "Open",
             "Save",
             "Save as",
             "Exit",
         }, new KeyStroke[] {
+            KeyStroke.getKeyStroke('N', InputEvent.CTRL_MASK),
             KeyStroke.getKeyStroke('O', InputEvent.CTRL_MASK),
             KeyStroke.getKeyStroke('S', InputEvent.CTRL_MASK),
             KeyStroke.getKeyStroke('S', InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK),
@@ -48,16 +50,25 @@ public class Main
             "Reset",
         }, new KeyStroke[] {
             KeyStroke.getKeyStroke(' '),
-            KeyStroke.getKeyStroke('r'),
+            KeyStroke.getKeyStroke('R', InputEvent.CTRL_MASK),
+        }, new MenuEventHandler());
+        
+        gui.addMenu("Help", new String[] {
+            "Help",
+        }, new KeyStroke[] {
+            KeyStroke.getKeyStroke('H', InputEvent.CTRL_MASK),
         }, new MenuEventHandler());
     }
     
-    // This exists only for the GUI and MouseHandler classes to use.
-    // Otherwise I'd need to recreate it each time I load? Or send it to them?
-    public static Graph getGraph() {
-        return currentGraph;
-    }
     
+    public static void newGraph() {
+        currentFilename = null;
+        currentGraph = new Graph();
+        
+        mouseHandler.setGraph(currentGraph);
+        gui.setGraph(currentGraph);
+        gui.repaint();
+    }
     
     public static void openFileMenu() {
         String name = gui.showInputDialog("Choose a filename:");
@@ -92,5 +103,28 @@ public class Main
         }
         
         FileInterface.writeGraph(currentFilename, currentGraph, gui);
+    }
+    
+    
+    public static void helpMenu() {
+        gui.showMessageDialog("To open an example graph, go to File > Open and enter \"example.csv\".\nPress space to step forward in the simulation.", "Help");
+    }
+    
+    
+    /*
+     * In-between function because MenuEventHandler does not have the current graph.
+     * Also checks if we have a graph.
+     */
+    public static void stepDijkstra() {
+        if (currentGraph == null) {return;}
+        
+        Dijkstra.step(currentGraph, gui);
+        gui.repaint();
+    }
+    public static void resetDijkstra() {
+        if (currentGraph == null) {return;}
+        
+        Dijkstra.reset(currentGraph);
+        gui.repaint();
     }
 }

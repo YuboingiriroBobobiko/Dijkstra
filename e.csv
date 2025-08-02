@@ -1,14 +1,17 @@
 6
-WellingtonCity,313,336
-Porirua,384,141
-Petone,597,275
-Upper Hutt,700,100
-England,642,422
-dasda asd as,441,424
-6
-WellingtonCity,Petone,100.0
-Porirua,Upper Hutt,300.0
-Porirua,Petone,200.0
-Petone,Upper Hutt,150.0
-Petone,England,50.0
-Petone,dasda asd as,1.0
+A,414,402
+B,590,445
+C,566,316
+D,731,296
+E,618,179
+F,401,226
+9
+A,C,9.0
+A,B,7.0
+A,F,14.0
+B,C,10.0
+B,D,15.0
+C,D,11.0
+C,F,2.0
+D,E,6.0
+E,F,9.0

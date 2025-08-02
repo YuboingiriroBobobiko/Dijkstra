@@ -1,13 +1,15 @@
 #BlueJ class context
 comment0.target=Node
-comment1.params=nodeName\ posX\ posY
-comment1.target=Node(java.lang.String,\ int,\ int)
-comment2.params=
-comment2.target=java.util.ArrayList\ getConnections()
-comment3.params=newConnection
-comment3.target=void\ addConnection(Connection)
-comment4.params=connection
-comment4.target=void\ removeConnection(Connection)
-comment5.params=
-comment5.target=java.lang.String\ stringify()
-numComments=6
+comment1.params=
+comment1.target=void\ resetDijkstraStats()
+comment2.params=nodeName\ posX\ posY
+comment2.target=Node(java.lang.String,\ int,\ int)
+comment3.params=
+comment3.target=java.util.ArrayList\ getConnections()
+comment4.params=newConnection
+comment4.target=void\ addConnection(Connection)
+comment5.params=connection
+comment5.target=void\ removeConnection(Connection)
+comment6.params=
+comment6.target=java.lang.String\ stringify()
+numComments=7

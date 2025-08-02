@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Dijkstra
+comment0.text=\r\n\ This\ class\ implements\ Dijkstra's\ algorithm,\ working\ out\ the\ shortest\ path\ to\ every\ node.\r\n\r\n\ Dylan\ fage-Brown\r\n\ 2025/08/02\r\n
+comment1.params=
+comment1.target=boolean\ isRunning()
+comment2.params=graph\ gui
+comment2.target=void\ step(Graph,\ GUI)
+comment3.params=graph
+comment3.target=void\ reset(Graph)
+numComments=4

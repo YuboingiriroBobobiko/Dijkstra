@@ -2,7 +2,7 @@
  * A node in the graph.
  *
  * Dylan fage-Brown
- * 2025/07/27
+ * 2025/08/02
  */
 
 
@@ -16,16 +16,21 @@ public class Node
     public int positionY;
     private ArrayList<Connection> connections;
     
+    public boolean isStart;
     public boolean visited;
     public double distance;
+    public void resetDijkstraStats() {
+        isStart = false;
+        visited = false;
+        distance = Double.POSITIVE_INFINITY;
+    }
     
     public Node(String nodeName, int posX, int posY) {
         name = nodeName;
         positionX = posX;
         positionY = posY;
         connections = new ArrayList<>();
-        visited = false;
-        distance = 0;
+        resetDijkstraStats();
     }
     
     public ArrayList<Connection> getConnections() {

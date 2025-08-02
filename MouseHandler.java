@@ -88,6 +88,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {
+        if (Dijkstra.isRunning()) {return;}
+        
         int mouseX = e.getX();
         int mouseY = e.getY();
         selectedNode = getNodeAtPosition(mouseX, mouseY);
@@ -99,9 +101,16 @@ public class MouseHandler implements MouseListener, MouseMotionListener
         }
     }
     public void mouseReleased(MouseEvent e) {
+        if (Dijkstra.isRunning()) {
+            gui.showErrorDialog("Cannot modify the graph while the algorithm is running! Reset with ctrl+R");
+            return;
+        }
+        
         isDragging = false;
     }
     public void mouseClicked(MouseEvent e) {
+        if (Dijkstra.isRunning()) {return;}
+        
         if (selectedNode == null) {
             Connection conn = getConnectionAtPosition(e.getX(), e.getY());
             if (conn == null) { // Clicked on background
@@ -193,6 +202,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener
     
     public void mouseMoved(MouseEvent e) {}
     public void mouseDragged(MouseEvent e) {
+        if (Dijkstra.isRunning()) {return;}
         if (selectedNode == null) {return;}
         
         int mouseX = e.getX();
