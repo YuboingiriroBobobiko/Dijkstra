@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=FileInterface
+comment1.params=filename
+comment1.target=Graph\ readGraph(java.lang.String)
+comment2.params=filename\ graph
+comment2.target=void\ writeGraph(java.lang.String,\ Graph)
+numComments=3

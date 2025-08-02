@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=GUI
+comment1.params=
+comment1.target=GUI()
+comment2.params=
+comment2.target=void\ finishSetup()
+comment3.params=name\ items\ shortcuts\ listener
+comment3.target=void\ addMenu(java.lang.String,\ java.lang.String[],\ javax.swing.KeyStroke[],\ java.awt.event.ActionListener)
+comment4.params=text
+comment4.target=void\ showErrorDialog(java.lang.String)
+comment5.params=text
+comment5.target=java.lang.String\ showInputDialog(java.lang.String)
+numComments=6

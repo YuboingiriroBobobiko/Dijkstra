@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=
+comment2.target=void\ initMenus()
+comment3.params=
+comment3.target=GUI\ getGui()
+comment4.params=
+comment4.target=void\ openFileMenu()
+comment5.params=askForName
+comment5.target=void\ saveFileMenu(boolean)
+numComments=6
