@@ -15,33 +15,33 @@ import java.util.Scanner;
 
 public class FileInterface
 {
-    public static Graph readGraph(String filename) {
+    public static Graph readGraph(String filename, GUI gui) {
         File file = new File(filename);
         Scanner fileReader;
         try {
             fileReader = new Scanner(file);
         } catch (IOException e) {
-            Main.getGui().showErrorDialog("Could not open the file"); // Need a better way to handle this
+            gui.showErrorDialog("Could not open the file"); // Need a better way to handle this
             return null;
         }
         
         Graph graph = new Graph();
         
         if (!fileReader.hasNextLine()) {
-            Main.getGui().showErrorDialog("Expected number of nodes, got end of file");
+            gui.showErrorDialog("Expected number of nodes, got end of file");
             return null;
         }
         int numNodes = Integer.parseInt(fileReader.nextLine());
         for (int i = 0; i < numNodes; i++) {
             if (!fileReader.hasNextLine()) {
-                Main.getGui().showErrorDialog("Expected node, got end of file");
+                gui.showErrorDialog("Expected node, got end of file");
                 return null;
             }   
             String line = fileReader.nextLine();
             String[] fields = line.split(",");
             
             if (fields.length != 3) {
-                Main.getGui().showErrorDialog("Incorrect number of fields (at node " + i + ")");
+                gui.showErrorDialog("Incorrect number of fields (at node " + i + ")");
                 return null;
             }
             
@@ -55,20 +55,20 @@ public class FileInterface
         }
         
         if (!fileReader.hasNextLine()) {
-            Main.getGui().showErrorDialog("Expected number of connections, got end of file");
+            gui.showErrorDialog("Expected number of connections, got end of file");
             return null;
         }
         int numConnections = Integer.parseInt(fileReader.nextLine());
         for (int i = 0; i < numConnections; i++) {
             if (!fileReader.hasNextLine()) {
-                Main.getGui().showErrorDialog("Expected connection, got end of file");
+                gui.showErrorDialog("Expected connection, got end of file");
                 return null;
             }   
             String line = fileReader.nextLine();
             String[] fields = line.split(",");
             
             if (fields.length != 3) {
-                Main.getGui().showErrorDialog("Incorrect number of fields (at connection " + i + ")");
+                gui.showErrorDialog("Incorrect number of fields (at connection " + i + ")");
                 return null;
             }
             
@@ -78,11 +78,11 @@ public class FileInterface
             
             Node nodeA = graph.getNodeByName(nodeNameA);
             if (nodeA == null) {
-                Main.getGui().showErrorDialog("Nonexistent node A (at connection " + i + ")");
+                gui.showErrorDialog("Nonexistent node A (at connection " + i + ")");
             }
             Node nodeB = graph.getNodeByName(nodeNameB);
             if (nodeB == null) {
-                Main.getGui().showErrorDialog("Nonexistent node B (at connection " + i + ")");
+                gui.showErrorDialog("Nonexistent node B (at connection " + i + ")");
             }
             
             nodeA.addConnection(new Connection(nodeA, nodeB, length));
@@ -93,7 +93,7 @@ public class FileInterface
     }
     
     
-    public static void writeGraph(String filename, Graph graph) {
+    public static void writeGraph(String filename, Graph graph, GUI gui) {
         File file = new File(filename);
         FileWriter fileWriter;
         try {
@@ -135,7 +135,7 @@ public class FileInterface
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
-            Main.getGui().showErrorDialog("Could not save the file");
+            gui.showErrorDialog("Could not save the file");
             return;
         }
     }

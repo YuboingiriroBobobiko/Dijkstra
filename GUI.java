@@ -13,6 +13,8 @@ import java.awt.event.*;
 
 public class GUI extends JFrame
 {
+    private Graph graph;
+    
     private JMenuBar menuBar;
     private Canvas canvas;
     private JPanel canvasPanel;
@@ -37,10 +39,14 @@ public class GUI extends JFrame
         setVisible(true);
     }
     
+    public void setGraph(Graph graph) {
+        this.graph = graph;
+    }
+    
     public void paint(Graphics g) {
         super.paint(g);
         
-        drawGraph(g);
+        drawGraph(g, graph);
     }
     
     
@@ -63,6 +69,10 @@ public class GUI extends JFrame
     public String showInputDialog(String text) {
         return JOptionPane.showInputDialog(text);
     }
+    public int showOptionDialog(String text, String[] options) {
+        return JOptionPane.showOptionDialog(this, text, "Please select",
+            JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+    }
     
     
     private static final int NODE_W = 75;
@@ -77,8 +87,7 @@ public class GUI extends JFrame
         g.drawString(str, x - HALF_W, y + HALF_H);
     }
     
-    private void drawGraph(Graphics g) {
-        Graph graph = Main.getGraph();
+    private void drawGraph(Graphics g, Graph graph) {
         
         // First we draw the connections between nodes
         for (Node node : graph.getNodes()) {

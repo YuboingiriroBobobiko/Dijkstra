@@ -16,15 +16,18 @@ public class Main
     
     private static String currentFilename;
     private static Graph currentGraph;
+    private static MouseHandler mouseHandler;
     
     public static void main(String[] args) {
         currentGraph = new Graph();
         
         gui = new GUI();
-        
         initMenus();
-        
         gui.finishSetup();
+        gui.setGraph(currentGraph);
+        
+        mouseHandler = new MouseHandler(gui);
+        mouseHandler.setGraph(currentGraph);
     }
     
     private static void initMenus() {
@@ -41,24 +44,28 @@ public class Main
         }, new MenuEventHandler());
     }
     
-    public static GUI getGui() {
-        return gui;
-    }
+    // This exists only for the GUI and MouseHandler classes to use.
+    // Otherwise I'd need to recreate it each time I load? Or send it to them?
     public static Graph getGraph() {
         return currentGraph;
     }
     
     
     public static void openFileMenu() {
-        String name = gui.showInputDialog("Choose a filename");
+        String name = gui.showInputDialog("Choose a filename:");
         if (name == null) {
             return;
         }
         currentFilename = name;
         
-        currentGraph = FileInterface.readGraph(currentFilename);
-        
-        gui.repaint(); // Update the graphics to show the new graph
+        Graph newGraph = FileInterface.readGraph(currentFilename, gui);
+        if (newGraph != null) {
+            currentGraph = newGraph;
+            gui.setGraph(newGraph);
+            mouseHandler.setGraph(newGraph);
+            
+            gui.repaint(); // Update the graphics to show the new graph
+        }
     }
     
     public static void saveFileMenu(boolean askForName) {
@@ -68,7 +75,7 @@ public class Main
         }
         
         if (askForName) {
-            String name = gui.showInputDialog("Choose a filename");
+            String name = gui.showInputDialog("Choose a filename:");
             if (name == null) {
                 return;
             }
@@ -76,6 +83,6 @@ public class Main
             currentFilename = name;
         }
         
-        FileInterface.writeGraph(currentFilename, currentGraph);
+        FileInterface.writeGraph(currentFilename, currentGraph, gui);
     }
 }
