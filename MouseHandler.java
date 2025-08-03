@@ -2,7 +2,7 @@
  * This class handles the mouse movement events and editing the graph.
  *
  * Dylan fage-Brown
- * 2025/07/31
+ * 2025/08/03
  */
 
 
@@ -101,6 +101,10 @@ public class MouseHandler implements MouseListener, MouseMotionListener
         }
     }
     public void mouseReleased(MouseEvent e) {
+        if (e.getX() <= 65 && e.getY() <= 80) {
+            return;
+        }
+        
         if (Dijkstra.isRunning()) {
             gui.showErrorDialog("Cannot modify the graph while the algorithm is running! Reset with ctrl+R");
             return;
@@ -109,6 +113,19 @@ public class MouseHandler implements MouseListener, MouseMotionListener
         isDragging = false;
     }
     public void mouseClicked(MouseEvent e) {
+        if (e.getX() <= 35 && e.getY() <= 80) {
+            // Step button
+            Main.stepDijkstra();
+            return;
+        }
+        if (e.getX() <= 65 && e.getY() <= 80) {
+            // Reset button
+            if (Dijkstra.isRunning()) {
+                Main.resetDijkstra();
+                return;
+            }
+        }
+        
         if (Dijkstra.isRunning()) {return;}
         
         if (selectedNode == null) {

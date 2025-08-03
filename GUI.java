@@ -46,6 +46,7 @@ public class GUI extends JFrame
     public void paint(Graphics g) {
         super.paint(g);
         
+        drawControls(g);
         drawGraph(g, graph);
     }
     
@@ -78,6 +79,20 @@ public class GUI extends JFrame
     public int showOptionDialog(String text, String[] options) {
         return JOptionPane.showOptionDialog(this, text, "Please select",
             JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, null);
+    }
+    
+    
+    private void drawControls(Graphics g) {
+        g.setColor(Color.black);
+        
+        if (Dijkstra.isRunning()) {
+            // Reset square
+            g.drawRect(45, 60, 20, 20);
+        }
+        // Step triangle
+        g.drawLine(15, 60, 35, 70);
+        g.drawLine(15, 80, 35, 70);
+        g.drawLine(15, 60, 15, 80);
     }
     
     

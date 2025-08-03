@@ -21,12 +21,14 @@ public class Node
     public boolean visited;
     public int highlightedIdx;
     public double distance;
+    public Connection prevPathConn;
     public void resetDijkstraStats() {
         isStart = false;
         isEnd = false;
         visited = false;
         highlightedIdx = -1;
         distance = Double.POSITIVE_INFINITY;
+        prevPathConn = null;
         for (Connection conn : connections) {
             conn.highlighted = false;
         }

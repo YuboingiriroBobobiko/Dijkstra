@@ -76,6 +76,14 @@ public class Dijkstra
             
             closestNode.highlightedIdx = currIdx;
             currState = State.FOUND_CLOSEST;
+            
+            // If we find the end node then it must be the shortest distance
+            if (closestNode == endNode) {
+                closestNode.highlightedIdx = Integer.MAX_VALUE; // Make the highlighting never fade
+                currPathNode = endNode;
+                currState = State.FIND_PATH;
+            }
+            
             return;
         }
         
@@ -94,7 +102,6 @@ public class Dijkstra
         if (currState == State.UPDATE_NEIGHBOURS) {
             closestNode.visited = true;
             
-            boolean foundEnd = false;
             for (Connection connection : closestNode.getConnections()) {
                 Node neighbourNode = connection.getDest();
                 if (!neighbourNode.visited) {
@@ -102,20 +109,12 @@ public class Dijkstra
                     double distanceFromHere = closestNode.distance + connection.distance;
                     if (distanceFromHere < neighbourNode.distance) {
                         neighbourNode.distance = distanceFromHere;
+                        neighbourNode.prevPathConn = connection.getOpposite();
                     }
-                }
-                
-                if (neighbourNode == endNode) {
-                    neighbourNode.highlightedIdx = Integer.MAX_VALUE; // Make the highlighting never fade
-                    foundEnd = true;
                 }
             }
             
             currState = State.UPDATED_NEIGHBOURS;
-            if (foundEnd) {
-                currPathNode = endNode;
-                currState = State.FIND_PATH;
-            }
             return;
         }
         
@@ -125,19 +124,8 @@ public class Dijkstra
         }
         
         if (currState == State.FIND_PATH) {
-            double minDist = Double.POSITIVE_INFINITY;
-            Node nextNode = null;
-            Connection nextConn = null;
-            for (Connection connection : currPathNode.getConnections()) {
-                Node connNode = connection.getDest();
-                double connDist = connNode.distance;
-                if (connDist < minDist) {
-                    minDist = connDist;
-                    nextNode = connNode;
-                    nextConn = connection;
-                }
-            }
-            if (nextNode == null) {
+            Connection nextConn = currPathNode.prevPathConn;
+            if (nextConn == null) {
                 gui.showErrorDialog("Next node in path is null!");
                 return;
             }
@@ -145,9 +133,9 @@ public class Dijkstra
             nextConn.highlighted = true;
             nextConn.getOpposite().highlighted = true;
             
-            currPathNode = nextNode;
-            nextNode.highlightedIdx = Integer.MAX_VALUE;;
-            if (nextNode == startNode) {
+            currPathNode = nextConn.getDest();
+            currPathNode.highlightedIdx = Integer.MAX_VALUE;;
+            if (currPathNode == startNode) {
                 currState = State.FOUND_PATH;
             }
             return;

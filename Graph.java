@@ -2,7 +2,7 @@
  * Holds a list of Nodes and can search through them.
  *
  * Dylan fage-Brown
- * 2025/07/24
+ * 2025/08/03
  */
 
 
@@ -26,7 +26,7 @@ public class Graph
     }
     public Node getNodeByName(String name) {
         for (Node node : nodes) {
-            if (node.name.equals(name)) {
+            if (node.name.toLowerCase().equals(name.toLowerCase())) {
                 return node;
             }
         }
