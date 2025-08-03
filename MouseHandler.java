@@ -157,6 +157,10 @@ public class MouseHandler implements MouseListener, MouseMotionListener
                         gui.showErrorDialog("Distance is not a number");
                         return;
                     }
+                    if (distance < 0) {
+                        gui.showErrorDialog("Distance cannot be negative");
+                        return;
+                    }
                     conn.distance = distance;
                     conn.getOpposite().distance = distance;
                     break;
