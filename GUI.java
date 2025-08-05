@@ -120,8 +120,8 @@ public class GUI extends JFrame
                 Node nodeB = conn.getDest();
                 Color textBGColour;
                 if (conn.highlighted) {
-                    g.setColor(Color.red);
-                    textBGColour = Color.red;
+                    g.setColor(Color.cyan);
+                    textBGColour = Color.cyan;
                 } else {
                     g.setColor(Color.black);
                     textBGColour = Color.lightGray;
@@ -137,9 +137,9 @@ public class GUI extends JFrame
             Color nodeColour;
             // The highlighting is checked against the current algorithm step so that it will go back after the step is finished.
             if (node.highlightedIdx >= Dijkstra.currIdx) {
-                nodeColour = Color.yellow;
+                nodeColour = Color.cyan;
             } else if (node.visited) {
-                nodeColour = Color.red;
+                nodeColour = Color.yellow;
             } else {
                 nodeColour = Color.lightGray;
             }

@@ -1,5 +1,7 @@
 /**
  * This is the main class of the program and holds the entry point.
+ * 
+ * The github repository can be found at https://github.com/YuboingiriroBobobiko/Dijkstra
  *
  * Dylan fage-Brown
  * 2025/08/02
